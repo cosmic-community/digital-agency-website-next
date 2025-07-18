@@ -1,4 +1,4 @@
-# LFG Cosmic
+# Digital Agency Website
 
 ![Digital Agency Website](https://imgix.cosmicjs.com/fa3b88d0-63ed-11f0-a051-23c10f41277a-photo-1414235077428-338989a2e8c0-1752853419599.jpg?w=1200&h=300&fit=crop&auto=format,compress)
 
