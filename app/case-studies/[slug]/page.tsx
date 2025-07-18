@@ -1,7 +1,7 @@
 // app/case-studies/[slug]/page.tsx
 import { notFound } from 'next/navigation'
 import { getCaseStudyBySlug } from '@/lib/cosmic'
-import { CaseStudy } from '@/types'
+import { CaseStudy, Service, CosmicFile } from '@/types'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -120,7 +120,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
                   <div>
                     <span className="text-sm font-medium text-gray-500">Services Used</span>
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {caseStudy.metadata.services_used.map((service) => (
+                      {caseStudy.metadata.services_used.map((service: Service) => (
                         <span
                           key={service.id}
                           className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
@@ -155,7 +155,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <div className="mb-16">
             <h3 className="text-2xl font-bold text-gray-900 mb-8">Project Gallery</h3>
             <div className="grid md:grid-cols-2 gap-6">
-              {caseStudy.metadata.project_images.slice(1).map((image, index) => (
+              {caseStudy.metadata.project_images.slice(1).map((image: CosmicFile, index: number) => (
                 <div key={index} className="relative h-64 rounded-lg overflow-hidden">
                   <img
                     src={`${image.imgix_url}?w=800&h=400&fit=crop&auto=format,compress`}

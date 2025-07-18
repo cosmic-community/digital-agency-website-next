@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { getTestimonials } from '@/lib/cosmic'
 import TestimonialCard from '@/components/TestimonialCard'
 import CallToAction from '@/components/CallToAction'
+import { Testimonial } from '@/types'
 
 export const metadata: Metadata = {
   title: 'Client Testimonials - DigitalAgency',
@@ -47,7 +48,7 @@ export default async function TestimonialsPage() {
         <div className="container mx-auto px-4">
           {testimonials.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {testimonials.map((testimonial) => (
+              {testimonials.map((testimonial: Testimonial) => (
                 <TestimonialCard key={testimonial.id} testimonial={testimonial} />
               ))}
             </div>

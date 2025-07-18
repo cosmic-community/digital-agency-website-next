@@ -59,14 +59,15 @@ export interface CaseStudy extends CosmicObject {
     project_title: string;
     client_name: string;
     project_overview: string;
-    challenge?: string;
+    project_description?: string;
+    challenges?: string;
     solution?: string;
     results?: string;
     project_images?: CosmicFile[];
     services_used?: Service[];
     project_duration?: string;
-    launch_date?: string;
-    website_url?: string;
+    project_date?: string;
+    project_url?: string;
   };
 }
 

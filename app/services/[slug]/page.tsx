@@ -1,8 +1,9 @@
 // app/services/[slug]/page.tsx
-import { getService, getServices } from '@/lib/cosmic'
+import { getServiceBySlug, getServices } from '@/lib/cosmic'
 import { notFound } from 'next/navigation'
 import { FaCheck, FaArrowLeft } from 'react-icons/fa'
 import Link from 'next/link'
+import { Service } from '@/types'
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>
@@ -11,14 +12,14 @@ interface ServicePageProps {
 export async function generateStaticParams() {
   const services = await getServices()
   
-  return services.map((service) => ({
+  return services.map((service: Service) => ({
     slug: service.slug,
   }))
 }
 
 export async function generateMetadata({ params }: ServicePageProps) {
   const { slug } = await params
-  const service = await getService(slug)
+  const service = await getServiceBySlug(slug)
 
   if (!service) {
     return {
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: ServicePageProps) {
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params
-  const service = await getService(slug)
+  const service = await getServiceBySlug(slug)
 
   if (!service) {
     notFound()
@@ -96,7 +97,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 Key Features
               </h2>
               <ul className="space-y-4">
-                {features.map((feature, index) => (
+                {features.map((feature: string, index: number) => (
                   <li key={index} className="flex items-start">
                     <FaCheck className="text-green-500 mr-3 mt-1 flex-shrink-0" />
                     <span className="text-gray-700">{feature}</span>
