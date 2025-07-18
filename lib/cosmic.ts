@@ -5,6 +5,7 @@ import { CaseStudy, Testimonial, Service, TeamMember } from '@/types';
 const cosmic = createBucketClient({
   bucketSlug: process.env.COSMIC_BUCKET_SLUG || '',
   readKey: process.env.COSMIC_READ_KEY || '',
+  apiEnvironment: "staging"
 });
 
 // Get all case studies
