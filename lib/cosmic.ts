@@ -58,10 +58,19 @@ export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
       .depth(1);
     
     const testimonials = response.objects;
-    const featured = testimonials.filter((t: Testimonial) => t.metadata.featured_testimonial);
     
-    // Return featured testimonials, or first 3 if no featured ones
-    return featured.length > 0 ? featured : testimonials.slice(0, 3);
+    // Sort testimonials: featured first, then by creation date (newest first)
+    const sortedTestimonials = testimonials.sort((a: Testimonial, b: Testimonial) => {
+      // First, sort by featured status (featured testimonials first)
+      if (a.metadata.featured_testimonial && !b.metadata.featured_testimonial) return -1;
+      if (!a.metadata.featured_testimonial && b.metadata.featured_testimonial) return 1;
+      
+      // Then sort by creation date (newest first)
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
+    
+    // Return all testimonials (not just featured ones)
+    return sortedTestimonials;
   } catch (error) {
     console.error('Error fetching featured testimonials:', error);
     return [];
