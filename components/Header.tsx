@@ -26,18 +26,18 @@ export default function Header() {
       <div className="container">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-primary-600">
+            <Link href="/" className="text-xl sm:text-2xl font-bold text-primary-600">
               DigitalAgency
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden lg:flex space-x-6 xl:space-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-primary-600 transition-colors font-medium text-sm xl:text-base whitespace-nowrap"
               >
                 {item.name}
               </Link>
@@ -45,25 +45,26 @@ export default function Header() {
           </nav>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button
               onClick={toggleMenu}
-              className="text-gray-700 hover:text-primary-600 transition-colors"
+              className="text-gray-700 hover:text-primary-600 transition-colors p-2 -mr-2"
+              aria-label="Toggle menu"
             >
-              {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+              {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-gray-200">
-            <div className="space-y-2">
+          <nav className="lg:hidden py-4 border-t border-gray-200 bg-white">
+            <div className="space-y-1">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block py-2 text-gray-700 hover:text-primary-600 transition-colors font-medium"
+                  className="block py-3 px-2 text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors font-medium rounded-md"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
