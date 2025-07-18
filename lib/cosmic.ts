@@ -1,182 +1,90 @@
-import { createBucketClient } from '@cosmicjs/sdk'
-import { Service, TeamMember, CaseStudy, Testimonial } from '@/types'
+import { createBucketClient } from '@cosmicjs/sdk';
+import { CaseStudy, Testimonial, Service, TeamMember } from '@/types';
 
-export const cosmic = createBucketClient({
-  bucketSlug: process.env.COSMIC_BUCKET_SLUG as string,
-  readKey: process.env.COSMIC_READ_KEY as string,
-  writeKey: process.env.COSMIC_WRITE_KEY as string,
-  apiEnvironment: 'staging',
-})
+// Initialize Cosmic client
+const cosmic = createBucketClient({
+  bucketSlug: process.env.COSMIC_BUCKET_SLUG || '',
+  readKey: process.env.COSMIC_READ_KEY || '',
+});
 
-// Helper function for error handling
-function hasStatus(error: unknown): error is { status: number } {
-  return typeof error === 'object' && error !== null && 'status' in error;
-}
-
-// Fetch all services
-export async function getServices(): Promise<Service[]> {
-  try {
-    const response = await cosmic.objects
-      .find({ type: 'services' })
-      .props(['id', 'title', 'slug', 'metadata'])
-      .depth(1);
-    
-    return response.objects as Service[];
-  } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return [];
-    }
-    throw new Error('Failed to fetch services');
-  }
-}
-
-// Fetch featured services
-export async function getFeaturedServices(): Promise<Service[]> {
-  try {
-    const response = await cosmic.objects
-      .find({ 
-        type: 'services',
-        'metadata.featured_service': true
-      })
-      .props(['id', 'title', 'slug', 'metadata'])
-      .depth(1);
-    
-    return response.objects as Service[];
-  } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return [];
-    }
-    throw new Error('Failed to fetch featured services');
-  }
-}
-
-// Fetch single service by slug
-export async function getService(slug: string): Promise<Service | null> {
-  try {
-    const response = await cosmic.objects
-      .findOne({ 
-        type: 'services',
-        slug 
-      })
-      .props(['id', 'title', 'slug', 'metadata'])
-      .depth(1);
-    
-    return response.object as Service;
-  } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return null;
-    }
-    throw new Error('Failed to fetch service');
-  }
-}
-
-// Fetch all team members
-export async function getTeamMembers(): Promise<TeamMember[]> {
-  try {
-    const response = await cosmic.objects
-      .find({ type: 'team-members' })
-      .props(['id', 'title', 'slug', 'metadata'])
-      .depth(1);
-    
-    return response.objects as TeamMember[];
-  } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return [];
-    }
-    throw new Error('Failed to fetch team members');
-  }
-}
-
-// Fetch single team member by slug
-export async function getTeamMember(slug: string): Promise<TeamMember | null> {
-  try {
-    const response = await cosmic.objects
-      .findOne({ 
-        type: 'team-members',
-        slug 
-      })
-      .props(['id', 'title', 'slug', 'metadata'])
-      .depth(1);
-    
-    return response.object as TeamMember;
-  } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return null;
-    }
-    throw new Error('Failed to fetch team member');
-  }
-}
-
-// Fetch all case studies
+// Get all case studies
 export async function getCaseStudies(): Promise<CaseStudy[]> {
   try {
     const response = await cosmic.objects
       .find({ type: 'case-studies' })
       .props(['id', 'title', 'slug', 'metadata'])
       .depth(1);
-    
-    return response.objects as CaseStudy[];
+    return response.objects;
   } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return [];
-    }
-    throw new Error('Failed to fetch case studies');
+    console.error('Error fetching case studies:', error);
+    return [];
   }
 }
 
-// Fetch single case study by slug
+// Get a single case study by slug
 export async function getCaseStudy(slug: string): Promise<CaseStudy | null> {
   try {
     const response = await cosmic.objects
-      .findOne({ 
-        type: 'case-studies',
-        slug 
-      })
-      .props(['id', 'title', 'slug', 'metadata'])
+      .findOne({ type: 'case-studies', slug })
       .depth(1);
-    
-    return response.object as CaseStudy;
+    return response.object;
   } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return null;
-    }
-    throw new Error('Failed to fetch case study');
+    console.error('Error fetching case study:', error);
+    return null;
   }
 }
 
-// Fetch all testimonials
+// Get all testimonials
 export async function getTestimonials(): Promise<Testimonial[]> {
   try {
     const response = await cosmic.objects
       .find({ type: 'testimonials' })
       .props(['id', 'title', 'slug', 'metadata'])
       .depth(1);
-    
-    return response.objects as Testimonial[];
+    return response.objects;
   } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return [];
-    }
-    throw new Error('Failed to fetch testimonials');
+    console.error('Error fetching testimonials:', error);
+    return [];
   }
 }
 
-// Fetch featured testimonials
-export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
+// Get all services
+export async function getServices(): Promise<Service[]> {
   try {
     const response = await cosmic.objects
-      .find({ 
-        type: 'testimonials',
-        'metadata.featured_testimonial': true
-      })
+      .find({ type: 'services' })
       .props(['id', 'title', 'slug', 'metadata'])
       .depth(1);
-    
-    return response.objects as Testimonial[];
+    return response.objects;
   } catch (error) {
-    if (hasStatus(error) && error.status === 404) {
-      return [];
-    }
-    throw new Error('Failed to fetch featured testimonials');
+    console.error('Error fetching services:', error);
+    return [];
+  }
+}
+
+// Get a single service by slug
+export async function getService(slug: string): Promise<Service | null> {
+  try {
+    const response = await cosmic.objects
+      .findOne({ type: 'services', slug })
+      .depth(1);
+    return response.object;
+  } catch (error) {
+    console.error('Error fetching service:', error);
+    return null;
+  }
+}
+
+// Get all team members
+export async function getTeamMembers(): Promise<TeamMember[]> {
+  try {
+    const response = await cosmic.objects
+      .find({ type: 'team-members' })
+      .props(['id', 'title', 'slug', 'metadata'])
+      .depth(1);
+    return response.objects;
+  } catch (error) {
+    console.error('Error fetching team members:', error);
+    return [];
   }
 }
