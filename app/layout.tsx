@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     images: ['https://imgix.cosmicjs.com/fa3b88d0-63ed-11f0-a051-23c10f41277a-photo-1414235077428-338989a2e8c0-1752853419599.jpg?w=1200&h=630&fit=crop&auto=format,compress'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>",
   },
 }
 
@@ -47,8 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
       </head>
       <body className={inter.className}>
         <Header />
