@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from 'react-icons/fa'
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container section-padding">
@@ -99,7 +101,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
-          <p>&copy; 2024 DigitalAgency. All rights reserved.</p>
+          <p>&copy; {currentYear} DigitalAgency. All rights reserved.</p>
         </div>
       </div>
     </footer>
