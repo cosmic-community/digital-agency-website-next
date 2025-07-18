@@ -1,11 +1,13 @@
 import Link from 'next/link';
-import { getCaseStudies } from '@/lib/cosmic';
 import CaseStudyCard from './CaseStudyCard';
+import { CaseStudy } from '@/types';
 
-export default async function CaseStudiesSection() {
-  const caseStudies = await getCaseStudies();
-  
-  // Show only the first 3 case studies on the homepage
+interface CaseStudiesSectionProps {
+  caseStudies: CaseStudy[];
+}
+
+export default function CaseStudiesSection({ caseStudies }: CaseStudiesSectionProps) {
+  // Show only first 3 case studies on homepage
   const featuredCaseStudies = caseStudies.slice(0, 3);
 
   return (

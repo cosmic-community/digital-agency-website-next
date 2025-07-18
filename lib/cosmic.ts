@@ -48,6 +48,25 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   }
 }
 
+// Get featured testimonials
+export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
+  try {
+    const response = await cosmic.objects
+      .find({ type: 'testimonials' })
+      .props(['id', 'title', 'slug', 'metadata'])
+      .depth(1);
+    
+    const testimonials = response.objects;
+    const featured = testimonials.filter(t => t.metadata.featured_testimonial);
+    
+    // Return featured testimonials, or first 3 if no featured ones
+    return featured.length > 0 ? featured : testimonials.slice(0, 3);
+  } catch (error) {
+    console.error('Error fetching featured testimonials:', error);
+    return [];
+  }
+}
+
 // Get all services
 export async function getServices(): Promise<Service[]> {
   try {

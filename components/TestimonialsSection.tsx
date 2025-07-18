@@ -1,11 +1,10 @@
-import { getTestimonials } from '@/lib/cosmic';
+import { Testimonial } from '@/types';
 
-export default async function TestimonialsSection() {
-  const testimonials = await getTestimonials();
-  
-  // Show only featured testimonials or first 3
-  const featuredTestimonials = testimonials.filter(t => t.metadata.featured_testimonial) || testimonials.slice(0, 3);
+interface TestimonialsSectionProps {
+  testimonials: Testimonial[];
+}
 
+export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -19,7 +18,7 @@ export default async function TestimonialsSection() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredTestimonials.map((testimonial) => (
+          {testimonials.map((testimonial) => (
             <div key={testimonial.id} className="bg-gray-50 rounded-lg p-6 shadow-sm">
               <div className="flex items-center mb-4">
                 {testimonial.metadata.client_photo && (
@@ -47,7 +46,7 @@ export default async function TestimonialsSection() {
                     <svg
                       key={i}
                       className={`w-5 h-5 ${
-                        i < parseInt(testimonial.metadata.rating.key) 
+                        i < parseInt(testimonial.metadata.rating?.key || '0') 
                           ? 'text-yellow-400' 
                           : 'text-gray-300'
                       }`}

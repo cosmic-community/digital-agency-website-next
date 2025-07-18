@@ -12,7 +12,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
         <div className="relative h-48 overflow-hidden">
           <img
             src={`${caseStudy.metadata.project_images[0].imgix_url}?w=800&h=400&fit=crop&auto=format,compress`}
-            alt={caseStudy.metadata.project_title}
+            alt={caseStudy.metadata.project_title || 'Case Study'}
             className="w-full h-full object-cover"
           />
         </div>
@@ -40,7 +40,7 @@ export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
                   key={service.id}
                   className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full"
                 >
-                  {service.metadata.service_name}
+                  {service.metadata?.service_name || service.title}
                 </span>
               ))}
             </div>
