@@ -7,11 +7,6 @@ interface ServicesSectionProps {
 }
 
 export default function ServicesSection({ services }: ServicesSectionProps) {
-  // Show only featured services or first 3
-  const featuredServices = services.filter(s => s.metadata.featured_service).length > 0 
-    ? services.filter(s => s.metadata.featured_service)
-    : services.slice(0, 3);
-
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -24,20 +19,22 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {featuredServices.map((service) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          {services.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
 
-        <div className="text-center">
-          <Link
-            href="/services"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
-          >
-            View All Services
-          </Link>
-        </div>
+        {services.length > 4 && (
+          <div className="text-center">
+            <Link
+              href="/services"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
+            >
+              View All Services
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
