@@ -83,3 +83,22 @@ export interface Testimonial extends CosmicObject {
     featured_testimonial: boolean;
   };
 }
+
+// About Page type
+export interface AboutPage extends CosmicObject {
+  metadata: {
+    page_title: string;
+    hero_headline: string;
+    hero_subheadline: string;
+    hero_image?: CosmicFile;
+    mission_statement: string;
+    vision_statement: string;
+    company_story: string;
+    years_in_business: number;
+    projects_completed: number;
+    happy_clients: number;
+    team_members_count: number;
+    why_choose_us_title: string;
+    why_choose_us_content: string;
+  };
+}

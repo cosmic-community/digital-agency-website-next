@@ -1,5 +1,5 @@
 import { createBucketClient } from '@cosmicjs/sdk';
-import { CaseStudy, Testimonial, Service, TeamMember } from '@/types';
+import { CaseStudy, Testimonial, Service, TeamMember, AboutPage } from '@/types';
 
 // Initialize Cosmic client
 const cosmic = createBucketClient({
@@ -115,5 +115,18 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
   } catch (error) {
     console.error('Error fetching team members:', error);
     return [];
+  }
+}
+
+// Get about page content
+export async function getAboutPage(): Promise<AboutPage | null> {
+  try {
+    const response = await cosmic.objects
+      .findOne({ type: 'about-pages', slug: 'about' })
+      .depth(1);
+    return response.object;
+  } catch (error) {
+    console.error('Error fetching about page:', error);
+    return null;
   }
 }
