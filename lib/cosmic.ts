@@ -57,7 +57,7 @@ export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
       .depth(1);
     
     const testimonials = response.objects;
-    const featured = testimonials.filter(t => t.metadata.featured_testimonial);
+    const featured = testimonials.filter((t: Testimonial) => t.metadata.featured_testimonial);
     
     // Return featured testimonials, or first 3 if no featured ones
     return featured.length > 0 ? featured : testimonials.slice(0, 3);

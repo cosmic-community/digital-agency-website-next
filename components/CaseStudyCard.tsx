@@ -8,7 +8,7 @@ interface CaseStudyCardProps {
 export default function CaseStudyCard({ caseStudy }: CaseStudyCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      {caseStudy.metadata.project_images && caseStudy.metadata.project_images.length > 0 && (
+      {caseStudy.metadata.project_images && caseStudy.metadata.project_images.length > 0 && caseStudy.metadata.project_images[0] && (
         <div className="relative h-48 overflow-hidden">
           <img
             src={`${caseStudy.metadata.project_images[0].imgix_url}?w=800&h=400&fit=crop&auto=format,compress`}
