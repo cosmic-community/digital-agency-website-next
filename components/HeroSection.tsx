@@ -2,8 +2,20 @@ import Link from 'next/link'
 
 export default function HeroSection() {
   return (
-    <section className="bg-gradient-to-br from-primary-600 to-primary-800 text-white">
-      <div className="container section-padding">
+    <section className="relative bg-gradient-to-br from-primary-600 to-primary-800 text-white overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=2000&auto=format,compress&fit=crop"
+          alt="Digital workspace background"
+          className="w-full h-full object-cover opacity-20"
+        />
+      </div>
+      
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-600/80 to-primary-800/80 z-10"></div>
+      
+      <div className="relative z-20 container section-padding">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
             Transform Your Digital Presence
