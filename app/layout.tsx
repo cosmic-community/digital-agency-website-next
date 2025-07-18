@@ -34,6 +34,9 @@ export const metadata: Metadata = {
     description: 'Professional digital agency offering web development, SEO optimization, brand identity design, and social media marketing services.',
     images: ['https://imgix.cosmicjs.com/fa3b88d0-63ed-11f0-a051-23c10f41277a-photo-1414235077428-338989a2e8c0-1752853419599.jpg?w=1200&h=630&fit=crop&auto=format,compress'],
   },
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
@@ -43,6 +46,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </head>
       <body className={inter.className}>
         <Header />
         <main className="min-h-screen">
